@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111111">
+<title>FOHA Chairman English</title>
+<link rel="manifest" href="manifest.json">
+<style>
+*{box-sizing:border-box} body{margin:0;font-family:Arial,sans-serif;background:#f5f5f5;color:#111}
+header{background:#111;color:#fff;padding:22px 18px;position:sticky;top:0;z-index:3}
+h1{margin:0;font-size:24px} .sub{opacity:.75;margin-top:5px;font-size:14px}
+main{max-width:700px;margin:auto;padding:14px} input{width:100%;padding:13px;border:1px solid #ccc;border-radius:10px;font-size:16px}
+.tabs{display:flex;gap:7px;margin:12px 0;overflow:auto} button{border:0;border-radius:9px;padding:10px 13px;font-weight:600;background:#ddd}
+button.active{background:#111;color:#fff} .card{background:#fff;border-radius:14px;padding:17px;margin:10px 0;box-shadow:0 1px 5px #ddd}
+.term{font-size:22px;font-weight:700} .de{margin-top:5px;font-weight:600} .ex{margin-top:12px;line-height:1.45;color:#444}
+.star{float:right;background:none;font-size:22px;padding:0} .small{font-size:13px;color:#666}
+#count{margin:8px 0} .quizQ{font-size:21px;font-weight:700;margin:10px 0 18px} .answer{display:none;margin-top:12px;padding:12px;background:#eee;border-radius:9px}
+.row{display:flex;gap:8px;margin-top:12px} .row button{flex:1}
+</style></head>
+<body>
+<header><h1>FOHA Chairman English</h1><div class="sub">50 words you actually need as Chairman</div></header>
+<main>
+<input id="search" placeholder="Search English or German...">
+<div class="tabs">
+<button class="active" onclick="showTab('all',this)">All 50</button>
+<button onclick="showTab('fav',this)">My words</button>
+<button onclick="showTab('quiz',this)">Practice</button>
+</div>
+<div id="count"></div><div id="content"></div>
+</main>
+<script>
+const terms=[["Governance", "verantwortungsvolle Führung", "Who is responsible for what, and how is the organisation properly controlled?"], ["Accountability", "Rechenschaft / Verantwortung", "The Board must ensure accountability for decisions and resources."], ["Oversight", "Aufsicht / Kontrolle", "The Board provides oversight, while management handles daily operations."], ["Board", "Verwaltungsrat / Vorstand", "The Board sets strategic direction and provides oversight."], ["Chairman", "VR-Präsident / Vorsitzender", "As Chairman, I lead the Board and represent FOHA."], ["CEO", "Geschäftsführer", "The CEO is responsible for the day-to-day operations."], ["Strategy", "Strategie", "We need a clear strategy for the next three years."], ["Strategic direction", "strategische Ausrichtung", "The Board provides strategic direction."], ["Stakeholder", "Anspruchsgruppe / Beteiligter", "We need to understand the needs of our stakeholders."], ["Partnership", "Partnerschaft", "We are looking for strategic partnerships, not only donations."], ["Sustainability", "Nachhaltigkeit", "We need more sustainable sources of income."], ["Impact", "Wirkung", "We need to measure the impact of our programmes."], ["Safeguarding", "Schutz gefährdeter Personen", "Safeguarding children must always be a priority."], ["Compliance", "Einhaltung von Regeln und Gesetzen", "We must make sure that FOHA remains fully compliant."], ["Transparency", "Transparenz", "Transparency builds trust with partners and donors."], ["Conflict of interest", "Interessenkonflikt", "We must declare any conflict of interest."], ["Risk management", "Risikomanagement", "The Board needs to understand the main risks."], ["Financial controls", "finanzielle Kontrollmechanismen", "Strong financial controls protect the organisation."], ["Due diligence", "sorgfältige Prüfung", "We should complete due diligence before entering the partnership."], ["Governance framework", "Governance-Struktur / Regelwerk", "We need a clear governance framework."], ["Terms of reference", "Aufgaben- und Zuständigkeitsbeschreibung", "The committee should work according to its terms of reference."], ["Resolution", "Beschluss", "The Board approved the resolution."], ["Minutes", "Sitzungsprotokoll", "Please make sure the minutes reflect the decision correctly."], ["Quorum", "Beschlussfähigkeit", "We need a quorum before the Board can make a formal decision."], ["Agenda", "Traktandenliste", "Let's review the agenda before the meeting."], ["Decision-making", "Entscheidungsfindung", "Good decision-making requires the right information."], ["Policy", "Richtlinie", "The Board should approve the policy."], ["Procedure", "Verfahren / Ablauf", "We need a clear procedure for handling complaints."], ["Performance", "Leistung / Ergebnisse", "The Board should review organisational performance."], ["Monitoring", "Überwachung / laufende Beobachtung", "We need regular monitoring of our objectives."], ["Evaluation", "Auswertung / Evaluation", "The programme should be evaluated after one year."], ["Outcome", "Ergebnis / Wirkung", "What outcome are we trying to achieve?"], ["Beneficiary", "Begünstigte Person", "We need to listen to the people who benefit from our work."], ["Community", "Gemeinschaft / Gemeinde", "FOHA works closely with local communities."], ["Empowerment", "Befähigung / Stärkung", "Our programmes should focus on empowerment."], ["Vulnerable", "schutzbedürftig", "We work with vulnerable children and women."], ["Protection", "Schutz", "Child protection is central to FOHA's mission."], ["Advocacy", "Interessenvertretung", "FOHA can use advocacy to influence positive change."], ["Resource mobilisation", "Ressourcenbeschaffung", "We need a stronger resource mobilisation strategy."], ["Fundraising", "Mittelbeschaffung / Fundraising", "Fundraising should not be our only source of income."], ["Grant", "Fördermittel / Zuschuss", "We need to understand the grant requirements."], ["Funder", "Geldgeber / Förderer", "We should build relationships with long-term funders."], ["Donor", "Spender / Geber", "We want to build trust with our donors."], ["Corporate partner", "Unternehmenspartner", "We are looking for corporate partners in Kenya."], ["CSR", "gesellschaftliche Verantwortung von Unternehmen", "What are your company's CSR priorities?"], ["ESG", "Umwelt, Soziales und Unternehmensführung", "Which ESG priorities are relevant to your company?"], ["Social enterprise", "Sozialunternehmen", "Could FOHA develop a social enterprise that generates income?"], ["Revenue stream", "Einnahmequelle", "We need to develop new revenue streams."], ["Sustainable financing", "nachhaltige Finanzierung", "Our goal is to build more sustainable financing for FOHA."], ["Capacity building", "Aufbau von Fähigkeiten / Strukturen", "We need capacity building in finance and governance."]];
+let fav=JSON.parse(localStorage.getItem('fav')||'[]');
+let mode='all';
+const content=document.getElementById('content'), search=document.getElementById('search'), count=document.getElementById('count');
+function showTab(m,b){mode=m;document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));b.classList.add('active');search.style.display=m==='quiz'?'none':'block';render();}
+function toggle(i){fav=fav.includes(i)?fav.filter(x=>x!==i):[...fav,i];localStorage.setItem('fav',JSON.stringify(fav));render();}
+function render(){
+ if(mode==='quiz'){quiz();return}
+ let q=search.value.toLowerCase(); let list=terms.map((t,i)=>({t,i})).filter(x=>(mode==='all'||fav.includes(x.i)) && (!q||x.t.join(' ').toLowerCase().includes(q)));
+ count.textContent=list.length+' words';
+ content.innerHTML=list.map(x=>`<div class="card"><button class="star" onclick="toggle(${x.i})">${fav.includes(x.i)?'★':'☆'}</button><div class="term">${x.t[0]}</div><div class="de">${x.t[1]}</div><div class="ex">${x.t[2]}</div></div>`).join('');
+}
+function quiz(){
+ let i=Math.floor(Math.random()*terms.length),t=terms[i];
+ content.innerHTML=`<div class="card"><div class="small">What does this mean?</div><div class="quizQ">${t[0]}</div><button onclick="document.getElementById('ans').style.display='block'">Show answer</button><div id="ans" class="answer"><b>${t[1]}</b><br><br>${t[2]}</div><div class="row"><button onclick="quiz()">Next</button><button onclick="toggle(${i})">★ Save</button></div></div>`;
+ count.textContent='Practice mode';
+}
+search.addEventListener('input',render); render();
+</script></body></html>
